@@ -8,8 +8,19 @@ execute:
 
 
 ```{r}
+#| message: false
 library(tidyverse)
 library(primer.data)
+library(tidymodels)
+library(broom)
 ```
 
-Running for political office can be stressful and affect health. Using data from over 1,000 candidates for governor since 1945 in the United States, we seek to create a model for forecasting longevity for gubernatorial candidates.
+Running for political office can be stressful and affect health. Using data from over 1,000 candidates for governor since 1945 in the United States, we seek to create a model for forecasting longevity for gubernatorial candidates. Because our data come from elections dating back to 1945, our forecasted longevity may be lower than what is expected today given, increasing life expectancy over time.
+
+$$
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_n X_{ni} + \varepsilon_i
+$$
+
+$$
+\varepsilon_i \sim \mathcal{N}(0, \sigma^2)
+$$
