@@ -13,6 +13,7 @@ library(tidyverse)
 library(primer.data)
 library(tidymodels)
 library(broom)
+library(marginaleffects)
 ```
 
 Running for political office can be stressful and affect health. Using data from over 1,000 candidates for governor since 1945 in the United States, we seek to create a model for forecasting longevity for gubernatorial candidates. Because our data come from elections dating back to 1945, our forecasted longevity may be lower than what is expected today given, increasing life expectancy over time.
@@ -23,4 +24,29 @@ $$
 
 $$
 \varepsilon_i \sim \mathcal{N}(0, \sigma^2)
+$$
+
+
+```{r}
+library(easystats)
+
+fit_years <- linear_reg(engine = "lm") |> 
+  fit(lived_after ~ sex + election_age, data = x) |> 
+  tidy(conf.int = TRUE)
+```
+
+## Model with interaction
+
+$$
+Y_i = \beta_0 + \beta_1 \,\text{election\_age}_i + \beta_2 \,\text{sexMale}_i + \beta_3 \,(\text{election\_age}_i \times \text{sexMale}_i) + \varepsilon_i
+$$
+
+$$
+\varepsilon_i \sim \mathcal{N}(0, \sigma^2)
+$$
+
+## With estimated coefficients
+
+$$
+Y_i = 19.32339 - 0.05631 \,\text{election\_age}_i + 53.29554 \,\text{sexMale}_i - 0.79998 \,(\text{election\_age}_i \times \text{sexMale}_i) + \varepsilon_i
 $$
